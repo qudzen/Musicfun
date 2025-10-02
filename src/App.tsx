@@ -1,10 +1,10 @@
 import './App.css'
 import {useState} from "react";
 
-const tracks = [
-    {id: '1', isSelected: true, title: 'Musiccfun soundtrack', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3'},
-    {id: '2', isSelected: false, title: 'Musicfun', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3'}
-]
+// const tracks = [
+//     {id: '1', isSelected: true, title: 'Musiccfun soundtrack', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3'},
+//     {id: '2', isSelected: false, title: 'Musicfun', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3'}
+// ]
 
 // const newLiReactElements = tracks.map((track) => {
 //     return (
@@ -19,7 +19,15 @@ const tracks = [
 
 function App() {
     const [selectedTrackId, setSelectedTrackId] = useState(null)
+    const [tracks, setTracks] = useState(null)
 
+    if (tracks === null)
+        return (
+            <div>
+                <h1>Musicfun</h1>
+                <span>Loading...</span>
+            </div>
+        )
     if (tracks.length === 0){
         return (
             <div>
