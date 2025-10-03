@@ -1,5 +1,5 @@
 import './App.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 // const tracks = [
 //     {id: '1', isSelected: true, title: 'Musiccfun soundtrack', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3'},
@@ -20,6 +20,17 @@ import {useState} from "react";
 function App() {
     const [selectedTrackId, setSelectedTrackId] = useState(null)
     const [tracks, setTracks] = useState(null)
+
+    useEffect(() => {
+        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
+            headers: {
+                'api-key': '0c079638-275a-452a-abdb-7031649819d6'
+            }
+        }).then(res => res.json())
+            .then(json => setTracks(json.data))
+
+
+    }, [])
 
     if (tracks === null)
         return (
@@ -48,9 +59,9 @@ function App() {
                                 <div onClick={ () => {
                                     setSelectedTrackId(track.id)
                                 }}>
-                                    {track.title}
+                                    {track.attributes.title}
                                 </div>
-                                <audio controls src={track.url}></audio>
+                                <audio controls src={track.attributes.attachments[0].url}></audio>
                             </li>
                         )
                     })
