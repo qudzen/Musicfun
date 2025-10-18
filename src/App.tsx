@@ -19,6 +19,7 @@ import {useEffect, useState} from "react";
 
 function App() {
     const [selectedTrackId, setSelectedTrackId] = useState(null)
+    const [selectedTrack, setSelectedTrack] = useState(null)
     const [tracks, setTracks] = useState(null)
 
     useEffect(() => {
@@ -47,26 +48,61 @@ function App() {
             </div>
         )
     }
+
+
+
+
+
   return (
     <>
         <div>
             <h1>Musicfun player</h1>
-            <ul>
-                {
-                    tracks.map((track) => {
-                        return (
-                            <li key={track.id} style={{border: track.id ===  selectedTrackId ? '1px solid red' : 'none'}}>
-                                <div onClick={ () => {
-                                    setSelectedTrackId(track.id)
-                                }}>
-                                    {track.attributes.title}
-                                </div>
-                                <audio controls src={track.attributes.attachments[0].url}></audio>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            <button onClick={ () => {
+                setSelectedTrackId(null)
+                setSelectedTrack(null)
+
+            }}>
+
+            </button>
+            <div style={{ display: 'flex', gap: '40px'}}>
+                <ul>
+                    {
+                        tracks.map((track) => {
+                            return (
+                                <li key={track.id} style={{border: track.id ===  selectedTrackId ? '1px solid red' : 'none'}}>
+                                    <div onClick={ () => {
+                                        setSelectedTrackId(track.id)
+                                        setSelectedTrack('loading')
+
+                                        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks/' + track.id, {
+                                            headers: {
+                                                'api-key': '0c079638-275a-452a-abdb-7031649819d6'
+                                            }
+                                        }).then(res => res.json())
+                                            .then(json => setSelectedTrack(json.data))
+                                    }}>
+                                        {track.attributes.title}
+                                    </div>
+                                    <audio controls src={track.attributes.attachments[0].url}></audio>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+                <div>
+                    <h2>Details</h2>
+                    {selectedTrack === null
+                        ? 'track is not selected'
+                        : selectedTrack === 'loading'
+                        ? 'loading...'
+                        : <div>
+                            <h3> {selectedTrack.attributes.title} </h3>
+                            <h4>Lyrics</h4>
+                            <p> {selectedTrack.attributes.lyrics ?? 'no lyrics'} </p>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </>
   )
