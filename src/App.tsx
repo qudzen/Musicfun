@@ -22,6 +22,10 @@ function App() {
     const [selectedTrack, setSelectedTrack] = useState(null)
     const [tracks, setTracks] = useState(null)
 
+    useEffect( () => {
+        console.log("qwe")
+    }, [])
+
     useEffect(() => {
         fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
             headers: {
