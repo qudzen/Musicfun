@@ -1,27 +1,11 @@
-import './App.css'
 import {useEffect, useState} from "react";
+import './TrackDetail.tsx'
+import TrackDetail from "./TrackDetail.tsx";
 
-// const tracks = [
-//     {id: '1', isSelected: true, title: 'Musiccfun soundtrack', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3'},
-//     {id: '2', isSelected: false, title: 'Musicfun', url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3'}
-// ]
-
-// const newLiReactElements = tracks.map((track) => {
-//     return (
-//         <li key={track.id} style = { {border: track.isSelected ? '1px solid red' : 'none'} }>
-//             <div>
-//                 {track.title}
-//             </div>
-//             <audio controls src={track.url}></audio>
-//         </li>)
-// })
-
-
-function App() {
+function TrackList(){
     const [selectedTrackId, setSelectedTrackId] = useState(null)
     const [selectedTrack, setSelectedTrack] = useState(null)
     const [tracks, setTracks] = useState(null)
-
 
 
     useEffect(() => {
@@ -35,38 +19,23 @@ function App() {
 
     }, [])
 
-    if (tracks === null)
+    if (tracks === null){
         return (
             <div>
                 <h1>Musicfun</h1>
                 <span>Loading...</span>
             </div>
-        )
+        )}
     if (tracks.length === 0){
         return (
             <div>
                 <h1>Musicfun</h1>
                 <span>No tracks</span>
             </div>
-        )
-    }
+        )}
 
-
-
-
-
-  return (
-    <>
-        <div>
-            <h1>Musicfun player</h1>
-            <button onClick={ () => {
-                setSelectedTrackId(null)
-                setSelectedTrack(null)
-
-            }}>
-
-            </button>
-            <div style={{ display: 'flex', gap: '40px'}}>
+        return (
+            <>
                 <ul>
                     {
                         tracks.map((track) => {
@@ -91,23 +60,8 @@ function App() {
                         })
                     }
                 </ul>
-                <div>
-                    <h2>Details</h2>
-                    {selectedTrack === null
-                        ? 'track is not selected'
-                        : selectedTrack === 'loading'
-                        ? 'loading...'
-                        : <div>
-                            <h3> {selectedTrack.attributes.title} </h3>
-                            <h4>Lyrics</h4>
-                            <p> {selectedTrack.attributes.lyrics ?? 'no lyrics'} </p>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </>
-  )
+                <TrackDetail />
+            </>
+        )
 }
-
-export default App
+export default TrackList
