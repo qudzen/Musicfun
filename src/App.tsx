@@ -31,8 +31,19 @@ function App() {
             }
         }).then(res => res.json())
             .then(json => setTracks(json.data))
+    }, [])
 
 
+    useEffect(() => {
+        if (!selectedTrackId) {
+            return;
+        }
+        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks/' + track.id, {
+            headers: {
+                'api-key': '0c079638-275a-452a-abdb-7031649819d6'
+            }
+        }).then(res => res.json())
+            .then(json => setSelectedTrack(json.data))
     }, [])
 
     if (tracks === null)
@@ -76,12 +87,7 @@ function App() {
                                         setSelectedTrackId(track.id)
                                         setSelectedTrack('loading')
 
-                                        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks/' + track.id, {
-                                            headers: {
-                                                'api-key': '0c079638-275a-452a-abdb-7031649819d6'
-                                            }
-                                        }).then(res => res.json())
-                                            .then(json => setSelectedTrack(json.data))
+                                        
                                     }}>
                                         {track.attributes.title}
                                     </div>
