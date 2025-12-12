@@ -40,20 +40,22 @@ function TrackList({onTrackSelected}){
         onTrackSelected?.(null)
     }
 
+    const handleClick = (trackId) => {
+        setSelectedTrackId(trackId)
+        onTrackSelected?.(trackId)
+    }
+
     return(
         <div>
             <button onClick={resetButton}>reset</button>
             <ul>
                 {
                     tracks.map((track) => {
-                        const handleClick = () => {
-                            setSelectedTrackId(track.id)
-                            onTrackSelected?.(track.id)
-                        }
+
 
 
                         return (
-                            <TrackItem key={track.id} track={track} isSelected={track.id ===  selectedTrackId} handleClick={handleClick} />
+                            <TrackItem key={track.id} track={track} isSelected={track.id ===  selectedTrackId} onSelect={handleClick} />
                         )
                     })
                 }
