@@ -4,8 +4,8 @@ import TrackDetail from "./TrackDetail.tsx";
 import {useState} from "react";
 
 function MainContent() {
-    const [trackId, setTrackId] = useState(null);
-    const handleTrackSelected = (id) => {setTrackId(id)}
+    const [trackId, setTrackId] = useState< null | string >(null);
+    const handleTrackSelected = (id: null | string) => {setTrackId(id)}
     return <div>
         <PageName />
         <div style = {{display: "flex"}}>

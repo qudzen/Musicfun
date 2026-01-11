@@ -1,10 +1,21 @@
 import {useEffect, useState} from "react";
 import './TrackList.tsx'
 
+type GetTrackDetailOutputData = {
+    id: string,
+    attributes: {
+        title: string,
+        lyrics: string | null,
+    }
+}
 
-function TrackDetail({trackId}) {
+type Props = {
+    trackId: string | null
+}
 
-    const [selectedTrack, setSelectedTrack] = useState(null)
+function TrackDetail({trackId}: Props) {
+
+    const [selectedTrack, setSelectedTrack] = useState<GetTrackDetailOutputData | null | 'loading'>(null)
 
 
     useEffect(() => {

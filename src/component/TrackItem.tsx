@@ -1,14 +1,30 @@
+export type T = {
+    id: string,
+    attributes: TrackListItemAttributes
+}
 
-function TrackItem(props){
-    const handleClick = () => props.onSelect?.(props.track.id)
+type TrackListItemAttributes = {
+    title: string,
+    attachments: Array<{ url: string }>
+}
+
+type Props = {
+    isSelected: boolean,
+    onSelect: (trackId: string) => void,
+    track: T
+}
+
+
+function TrackItem({onSelect, track, isSelected}: Props){
+    const handleClick = () => onSelect?.(track.id)
     return (
-        <li key={props.track.id} style={{
-            border: props.isSelected ? '1px solid red' : 'none'
+        <li key={track.id} style={{
+            border: isSelected ? '1px solid red' : 'none'
         }}>
             <div onClick={ handleClick }>
-                {props.track.attributes.title}
+                {track.attributes.title}
             </div>
-            <audio controls src={props.track.attributes.attachments[0].url}></audio>
+            <audio controls src={track.attributes.attachments[0].url}></audio>
         </li>
     )
 }
