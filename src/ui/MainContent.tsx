@@ -1,10 +1,12 @@
 import PageName from "./PageName.tsx";
 import TrackList from "./TrackList.tsx";
 import TrackDetail from "./TrackDetail.tsx";
-import {useState} from "react";
+import {useMainContent} from "../bll/useMainContent.tsx";
+
+
 
 function MainContent() {
-    const [trackId, setTrackId] = useState< null | string >(null);
+   const { trackId, setTrackId } = useMainContent()
     const handleTrackSelected = (id: null | string) => {setTrackId(id)}
     return <div>
         <PageName />

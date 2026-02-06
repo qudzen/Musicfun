@@ -1,12 +1,4 @@
-export type T = {
-    id: string,
-    attributes: TrackListItemAttributes
-}
-
-type TrackListItemAttributes = {
-    title: string,
-    attachments: Array<{ url: string }>
-}
+import type {T} from "../api/api.ts"
 
 type Props = {
     isSelected: boolean,
